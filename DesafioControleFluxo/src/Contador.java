@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class Contador {
     public static void main(String[] args) {
