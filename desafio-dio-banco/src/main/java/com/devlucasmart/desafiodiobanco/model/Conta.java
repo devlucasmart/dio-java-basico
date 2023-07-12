@@ -1,6 +1,5 @@
 package com.devlucasmart.desafiodiobanco.model;
 
-import com.devlucasmart.desafiodiobanco.dto.ContaRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -26,11 +26,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "conta")
-public class Conta {
+public class Conta implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTA")
-    @SequenceGenerator(name = "SEQ_CONTA", sequenceName = "SEQ_CONTA", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
     private String tipoConta;
@@ -42,19 +41,10 @@ public class Conta {
     private double saldo;
     @Column(name = "DATA_CADASTRO")
     private LocalDateTime dataCadastro;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @ManyToOne
     @JoinColumn(name = "banco_id")
     private Banco banco;
-
-    public static Conta of(ContaRequest contaRequest) {
-        return Conta.builder()
-                .tipoConta(contaRequest.getTipoConta())
-                .numero(contaRequest.getNumero())
-                .agencia(contaRequest.getAgencia())
-                .saldo(contaRequest.getSaldo())
-                .build();
-    }
 }

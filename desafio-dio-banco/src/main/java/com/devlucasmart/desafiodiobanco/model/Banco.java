@@ -1,10 +1,7 @@
 package com.devlucasmart.desafiodiobanco.model;
 
-import com.devlucasmart.desafiodiobanco.dto.BancoRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,29 +14,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
 
-@Setter
 @Getter
-@Data
-@Builder
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Banco {
+@Table(name = "banco")
+public class Banco implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_BANCO")
-    @SequenceGenerator(name = "SEQ_BANCO", sequenceName = "SEQ_BANCO", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @Column(nullable = false)
     private String nome;
     @JsonIgnore
     @OneToMany(mappedBy = "banco", fetch = FetchType.EAGER)
     private List<Conta> contas;
-    public static Banco of(BancoRequest bancoRequest) {
-        return Banco.builder()
-                .nome(bancoRequest.getNome())
-                .build();
-    }
 }
