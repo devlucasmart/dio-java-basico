@@ -23,5 +23,5 @@ public class BancoDto {
 
     private String nome;
 
-    private List<Conta> contas;
+    private List<ContaDto> contas;
 }
