@@ -23,7 +23,6 @@ public class ClienteDto {
     private Integer id;
 
     private String nome;
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Conta conta;
 }

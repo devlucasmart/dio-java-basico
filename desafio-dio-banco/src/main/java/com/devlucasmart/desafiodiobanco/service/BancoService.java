@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,18 +27,21 @@ public class BancoService {
 
     public List<BancoDto> buscarTodos() {
     List<Banco> bancos = bancoRepository.findAll();
-    List<BancoDto> bancoDtos = new ArrayList<BancoDto>();
-        for (Banco banco : bancos) {
-            List<Conta> contas = banco.getContas();
-            List<ContaDto> contaDtos = new ArrayList<ContaDto>();
-            for (Conta conta : contas) {
-                contaDtos.add(contaMapper.toDtoIgnoreCliente(conta));
-            }
-            BancoDto bancoDto = bancoMapper.toDtoIgnoreConta(banco);
-            bancoDto.setContas(contaDtos);
-            bancoDtos.add(bancoDto);
-        }
-        return bancoDtos;
+
+        return bancos.stream()
+                .map(banco -> {
+                    List<ContaDto> contaDtos = banco
+                            .getContas()
+                            .stream()
+                            .map(conta -> contaMapper.toDtoIgnoreCliente(conta))
+                            .collect(Collectors.toList());
+
+                    BancoDto bancoDto = bancoMapper.toDtoIgnoreConta(banco);
+                    bancoDto.setContas(contaDtos);
+
+                    return bancoDto;
+                })
+                .collect(Collectors.toList());
     }
 
     public BancoDto buscarPorId(Integer id) {
