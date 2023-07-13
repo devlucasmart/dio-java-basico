@@ -2,28 +2,33 @@ package com.devlucasmart.desafiodiobanco.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Setter
 @Getter
+@Setter
 @Builder
-@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "conta")
 public class Conta implements Serializable {
@@ -37,14 +42,14 @@ public class Conta implements Serializable {
     private int numero;
     @Column(nullable = false)
     private int agencia;
+    @Column(name = "DATA_CADASTRO")
+    private LocalDateTime dataCadastro = LocalDateTime.now();
     @Column(nullable = false)
     private double saldo;
-    @Column(name = "DATA_CADASTRO")
-    private LocalDateTime dataCadastro;
-    @OneToOne
-    @JoinColumn(name = "cliente_id")
+    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
-    @ManyToOne
-    @JoinColumn(name = "banco_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.DETACH)
+    @JoinColumn(name = "banco_id", referencedColumnName = "id")
     private Banco banco;
 }

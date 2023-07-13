@@ -2,6 +2,7 @@ package com.devlucasmart.desafiodiobanco.dto;
 
 import com.devlucasmart.desafiodiobanco.model.Banco;
 import com.devlucasmart.desafiodiobanco.model.Cliente;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -25,9 +26,8 @@ public class ContaDto {
     private int numero;
     private int agencia;
     private double saldo;
-    private LocalDateTime dataCadastro;
-    private LocalDateTime dataInicial;
-    private LocalDateTime dataFinal;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Cliente cliente;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Banco banco;
 }

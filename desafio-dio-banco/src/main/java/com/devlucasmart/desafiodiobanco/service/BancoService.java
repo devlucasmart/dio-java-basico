@@ -43,11 +43,6 @@ public class BancoService {
                 })
                 .collect(Collectors.toList());
     }
-
-    public BancoDto buscarPorId(Integer id) {
-        Optional<Banco> banco = bancoRepository.findById(id);
-        return bancoMapper.toDto(banco.get());
-    }
     public BancoDto inserir(BancoDto bancoDto) {
         Banco banco = bancoMapper.toDomain(bancoDto);
         banco = bancoRepository.save(banco);

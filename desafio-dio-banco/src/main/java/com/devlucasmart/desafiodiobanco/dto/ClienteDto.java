@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +19,6 @@ import java.util.List;
 @EqualsAndHashCode
 public class ClienteDto {
     private Integer id;
-
     private String nome;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Conta conta;
