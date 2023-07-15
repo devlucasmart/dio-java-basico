@@ -3,7 +3,6 @@ package com.devlucasmart.desafiodiobanco.service;
 import com.devlucasmart.desafiodiobanco.dto.ClienteDto;
 import com.devlucasmart.desafiodiobanco.dto.ContaDto;
 import com.devlucasmart.desafiodiobanco.mappers.ClienteMapper;
-import com.devlucasmart.desafiodiobanco.mappers.ContaMapper;
 import com.devlucasmart.desafiodiobanco.model.Cliente;
 import com.devlucasmart.desafiodiobanco.model.Conta;
 import com.devlucasmart.desafiodiobanco.repository.ClienteRepository;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

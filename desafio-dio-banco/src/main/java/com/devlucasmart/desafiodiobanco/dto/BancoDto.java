@@ -1,6 +1,5 @@
 package com.devlucasmart.desafiodiobanco.dto;
 
-import com.devlucasmart.desafiodiobanco.model.Conta;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

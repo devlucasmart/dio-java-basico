@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +33,10 @@ public class ContaService {
         Optional<Conta> conta = contaRepository.findById(id);
         return contaMapper.toDto(conta.get());
     }
+
     public ContaDto inserir(ContaDto contaDto) {
         Conta conta = contaMapper.toDomain(contaDto);
+        conta.setDataCadastro(LocalDateTime.now());
         conta = contaRepository.save(conta);
         return contaMapper.toDto(conta);
     }
@@ -43,6 +46,25 @@ public class ContaService {
         Conta conta = contaMapper.toDomain(contaDto);
         conta = contaRepository.save(conta);
         return contaMapper.toDto(conta);
+    }
+
+    public void transferirSaldo(Integer contaOrigemId, Integer contaDestinoId, double saldo) {
+
+        Conta contaOrigem = contaRepository.findById(contaOrigemId)
+                .orElseThrow(() -> new RuntimeException("Conta de Origem não encontrada"));
+        Conta contaDestino = contaRepository.findById(contaDestinoId)
+                .orElseThrow(() -> new RuntimeException("Conta de Destino não Encontrada"));
+
+        if (contaOrigem.getSaldo() < saldo) {
+            throw new RuntimeException("Saldo Insuficiente na conta de Origem");
+        }
+        ContaDto contaOrigemDto = contaMapper.toDto(contaOrigem);
+        contaOrigemDto.setSaldo(contaOrigemDto.getSaldo() - saldo);
+        atualizar(contaOrigemId, contaOrigemDto);
+
+        ContaDto contaDestinoDto = contaMapper.toDto(contaDestino);
+        contaDestinoDto.setSaldo(contaDestinoDto.getSaldo() + saldo);
+        atualizar(contaDestinoId, contaDestinoDto);
     }
 
     public void deletar(Integer id) {

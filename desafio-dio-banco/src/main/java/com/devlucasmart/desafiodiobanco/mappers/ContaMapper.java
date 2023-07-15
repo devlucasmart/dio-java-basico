@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface ContaMapper {
     ContaDto toDto(Conta conta);
+
     Conta toDomain(ContaDto contaDto);
 
     @Mapping(target = "cliente", ignore = true)

@@ -42,8 +42,8 @@ public class Conta implements Serializable {
     private int numero;
     @Column(nullable = false)
     private int agencia;
-    @Column(name = "DATA_CADASTRO")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
+    @Column(name = "DATA_CADASTRO", nullable = false)
+    private LocalDateTime dataCadastro;
     @Column(nullable = false)
     private double saldo;
     @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.DETACH)

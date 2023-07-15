@@ -23,6 +23,7 @@ import java.util.List;
 @RequestMapping("clientes")
 public class ClienteController {
     private final ClienteService clienteService;
+
     @GetMapping
     public ResponseEntity<List<ClienteDto>> buscarTodos() {
         return ResponseEntity.ok().body(clienteService.buscarTodos());

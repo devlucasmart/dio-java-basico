@@ -26,6 +26,7 @@ public class ContaDto {
     private int numero;
     private int agencia;
     private double saldo;
+    private LocalDateTime dataCadastro;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Cliente cliente;
     @JsonInclude(JsonInclude.Include.NON_NULL)

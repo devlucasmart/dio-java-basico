@@ -9,7 +9,9 @@ import org.mapstruct.Mapping;
 public interface BancoMapper {
 
     BancoDto toDto(Banco banco);
+
     Banco toDomain(BancoDto bancoDto);
+
     @Mapping(target = "contas", ignore = true)
     BancoDto toDtoIgnoreConta(Banco banco);
 }
