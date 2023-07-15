@@ -28,12 +28,12 @@ public class ClienteService {
         return clientes.stream()
                 .map(cliente -> {
                     ClienteDto clienteDto = new ClienteDto();
-                    clienteDto.setId(cliente.getId()); // Set customer ID
+                    clienteDto.setId(cliente.getId());
 
                     Conta conta = cliente.getConta();
                     if (conta != null) {
                         ContaDto contaDto = new ContaDto();
-                        contaDto.setId(conta.getId()); // Set account ID
+                        contaDto.setId(conta.getId());
                         clienteDto.setConta(conta);
                     }
                     return clienteDto;
