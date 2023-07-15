@@ -48,8 +48,8 @@ public class ContaController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PostMapping("/{contaOrigemId}/transfer/{contaDestinoId}")
-    public ResponseEntity<String> transferFunds(
+    @PostMapping("/{contaOrigemId}/transferir/{contaDestinoId}")
+    public ResponseEntity<String> transferirSaldo(
             @PathVariable Integer contaOrigemId,
             @PathVariable Integer contaDestinoId,
             @RequestParam double saldo) {
@@ -58,6 +58,30 @@ public class ContaController {
             return ResponseEntity.ok("Transfer successful");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Transfer failed: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("sacar/{contaId}")
+    public ResponseEntity<String> sacarSaldo(
+            @PathVariable Integer contaId,
+            @RequestParam double saldo) {
+        try {
+            contaService.sacarSaldo(contaId, saldo);
+            return ResponseEntity.ok("Saque Realizado com Sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Saque falhou: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("depositar/{contaId}")
+    public ResponseEntity<String> depositarSaldo(
+            @PathVariable Integer contaId,
+            @RequestParam double saldo) {
+        try {
+            contaService.depositarSaldo(contaId, saldo);
+            return ResponseEntity.ok("Deposito Realizado com Sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deposito falhou: " + e.getMessage());
         }
     }
 

@@ -36,7 +36,7 @@ public class ContaService {
 
     public ContaDto inserir(ContaDto contaDto) {
         Conta conta = contaMapper.toDomain(contaDto);
-        conta.setDataCadastro(LocalDateTime.now());
+//        conta.setDataCadastro(LocalDateTime.now());
         conta = contaRepository.save(conta);
         return contaMapper.toDto(conta);
     }
@@ -65,6 +65,28 @@ public class ContaService {
         ContaDto contaDestinoDto = contaMapper.toDto(contaDestino);
         contaDestinoDto.setSaldo(contaDestinoDto.getSaldo() + saldo);
         atualizar(contaDestinoId, contaDestinoDto);
+    }
+
+    public void sacarSaldo(Integer contaId, double saldo) {
+
+        Conta contaOrigem = contaRepository.findById(contaId)
+                .orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+
+        if (contaOrigem.getSaldo() < saldo) {
+            throw new RuntimeException("Saldo Insuficiente na conta");
+        }
+        ContaDto contaDto = contaMapper.toDto(contaOrigem);
+        contaDto.setSaldo(contaDto.getSaldo() - saldo);
+        atualizar(contaId, contaDto);
+    }
+    public void depositarSaldo(Integer contaId, double saldo) {
+
+        Conta contaOrigem = contaRepository.findById(contaId)
+                .orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+
+        ContaDto contaDto = contaMapper.toDto(contaOrigem);
+        contaDto.setSaldo(contaDto.getSaldo() + saldo);
+        atualizar(contaId, contaDto);
     }
 
     public void deletar(Integer id) {
