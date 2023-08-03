@@ -1,6 +1,6 @@
 package com.devlucasmart.desafiodiobanco.enuns;
 
-public enum TRANSACOES {
+public enum Transacoes {
     SAQUE,
     DEPOSITO,
     TRANSFERENCIA,

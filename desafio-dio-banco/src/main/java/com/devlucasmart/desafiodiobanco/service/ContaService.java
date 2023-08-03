@@ -35,7 +35,6 @@ public class ContaService {
 
     public ContaDto inserir(ContaDto contaDto) {
         Conta conta = contaMapper.toDomain(contaDto);
-//        conta.setDataCadastro(LocalDateTime.now());
         conta = contaRepository.save(conta);
         return contaMapper.toDto(conta);
     }
@@ -64,6 +63,9 @@ public class ContaService {
         ContaDto contaDestinoDto = contaMapper.toDto(contaDestino);
         contaDestinoDto.setSaldo(contaDestinoDto.getSaldo() + saldo);
         atualizar(contaDestinoId, contaDestinoDto);
+
+        extrato("Transferência Realizada. na conta: " + contaOrigemId + ",  tem o Saldo final de: " + saldo);
+        extrato("Transferência Recebida. na conta: " + contaDestinoId + ",  tem o Saldo final de: " + saldo);
     }
 
     public void sacarSaldo(Integer contaId, double saldo) {
@@ -77,6 +79,9 @@ public class ContaService {
         ContaDto contaDto = contaMapper.toDto(contaOrigem);
         contaDto.setSaldo(contaDto.getSaldo() - saldo);
         atualizar(contaId, contaDto);
+
+        extrato("Saque Realizado na Conta: " + contaId + ", Saldo: " + saldo);
+
     }
     public void depositarSaldo(Integer contaId, double saldo) {
 
@@ -86,6 +91,13 @@ public class ContaService {
         ContaDto contaDto = contaMapper.toDto(contaOrigem);
         contaDto.setSaldo(contaDto.getSaldo() + saldo);
         atualizar(contaId, contaDto);
+
+        extrato("Deposito Realizado na Conta: " + contaId + ", Saldo: " + saldo);
+
+    }
+
+    public void extrato(String extrato) {
+        System.out.println(extrato);
     }
 
     public void deletar(Integer id) {

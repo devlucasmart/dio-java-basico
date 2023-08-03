@@ -37,6 +37,16 @@ public class ContaController {
         return ResponseEntity.ok().body(contaService.buscarPorId(id));
     }
 
+    @PostMapping("{contaId}/extrato")
+    public ResponseEntity<String> extrato(@PathVariable Integer contaId, @RequestBody String extrato) {
+        try {
+            contaService.extrato(extrato);
+            return ResponseEntity.ok("Extrato processed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process extrato");
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> inserir(@RequestBody ContaDto contaDto) {
         contaDto = contaService.inserir(contaDto);

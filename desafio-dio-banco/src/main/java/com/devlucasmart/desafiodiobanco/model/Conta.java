@@ -18,8 +18,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -42,8 +45,9 @@ public class Conta implements Serializable {
     private int numero;
     @Column(nullable = false)
     private int agencia;
-//    @Column(name = "DATA_CADASTRO", nullable = false)
-//    private LocalDateTime dataCadastro;
+    @Column(name = "DATA_CADASTRO", nullable = false)
+    @Transient
+    private LocalDateTime dataCadastro = LocalDateTime.now();
     @Column(nullable = false)
     private double saldo;
     @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.DETACH)
