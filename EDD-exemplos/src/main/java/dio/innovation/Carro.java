@@ -2,7 +2,7 @@ package dio.innovation;
 
 import java.util.Objects;
 
-public class Carro {
+public class Carro implements Comparable<Carro>{
 
     private String marca;
 
@@ -36,5 +36,21 @@ public class Carro {
         return "Carro{" +
                 "marca='" + marca + '\'' +
                 '}';
+    }
+
+//    @Override
+//    public int compareTo(Carro carro) {
+//        if (this.marca.length() < carro.marca.length()){
+//            return -1;
+//
+//        } else if (this.marca.length() > carro.marca.length()){
+//            return 1;
+//        }
+//        return 0;
+//    }
+
+    @Override
+    public int compareTo(Carro carro) {
+     return this.getMarca().compareTo(carro.getMarca());
     }
 }
