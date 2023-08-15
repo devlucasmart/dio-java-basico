@@ -23,7 +23,7 @@ public class Carro {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Carro carro = (Carro) o;
-        return true;
+        return Objects.equals(marca, carro.marca);
     }
 
     @Override
