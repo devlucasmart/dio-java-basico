@@ -1,6 +1,8 @@
 package list;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Main {
@@ -27,7 +29,14 @@ public class Main {
         System.out.println("Substitua a nota 9.0 pela nota 6.0");
         notas.set(notas.indexOf(9.0), 6.0);
         System.out.println(notas);
+        Double soma = 0d;
 
+        System.out.println("Exiba a soma dos valores");
+        Iterator<Double> iterator = notas.iterator();
+        while(iterator.hasNext()){
+            Double next = iterator.next();
+            soma += next;
+        }
 //        for (Double nota : notas) {
 //            System.out.println(nota);
 //        }
