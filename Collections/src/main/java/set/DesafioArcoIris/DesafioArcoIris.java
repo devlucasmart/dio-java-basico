@@ -1,6 +1,5 @@
-package set;
+package set.DesafioArcoIris;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.function.Predicate;

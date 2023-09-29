@@ -1,4 +1,4 @@
-package set;
+package set.DesafioLinguagemFavorita;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
