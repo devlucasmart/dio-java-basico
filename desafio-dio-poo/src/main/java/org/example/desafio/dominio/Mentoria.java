@@ -1,32 +1,27 @@
 package org.example.desafio.dominio;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Mentoria extends Conteudo {
     private LocalDate data;
 
-    public Mentoria() {
-    }
-
-    public Mentoria(LocalDate data) {
-        this.data = data;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = (getData() != null) ? dateFormat.format(getData()) : "null";
 
     @Override
     public String toString() {
-        return "Mentoria{" +
-                "tituto='" + getTituto() + '\'' +
-                ", descricao='" + getDescricao() + '\'' +
-                ", data=" + data +
-                '}';
+        return String.format("\nMentoria {titulo='%s', descricao='%s', data=%s}",
+                getTituto(), getDescricao(), formattedDate);
     }
 
     @Override
